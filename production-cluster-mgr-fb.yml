@@ -52,7 +52,15 @@ services:
       - API_USERNAME=acme-user
       - API_PASSWORD=MyS3cr37P450r.*-
     volumes:
-      - ossec-logs:/var/ossec/logs:ro
+      - ossec-api-configuration:/var/ossec/api/configuration
+      - ossec-etc:/var/ossec/etc
+      - ossec-logs:/var/ossec/logs
+      - ossec-queue:/var/ossec/queue
+      - ossec-var-multigroups:/var/ossec/var/multigroups
+      - ossec-integrations:/var/ossec/integrations
+      - ossec-active-response:/var/ossec/active-response/bin
+      - ossec-agentless:/var/ossec/agentless
+      - ossec-wodles:/var/ossec/wodles
       - ./production_cluster/ssl_certs/root-ca.pem:/etc/ssl/root-ca.pem
       - ./production_cluster/ssl_certs/filebeat.pem:/etc/ssl/filebeat.pem
       - ./production_cluster/ssl_certs/filebeat.key:/etc/ssl/filebeat.key
@@ -99,7 +107,17 @@ services:
       - SSL_CERTIFICATE=/etc/ssl/filebeat.pem
       - SSL_KEY=/etc/ssl/filebeat.key
     volumes:
+      - worker-ossec-api-configuration:/var/ossec/api/configuration
+      - worker-ossec-etc:/var/ossec/etc
       - worker-ossec-logs:/var/ossec/logs
+      - worker-ossec-queue:/var/ossec/queue
+      - worker-ossec-var-multigroups:/var/ossec/var/multigroups
+      - worker-ossec-integrations:/var/ossec/integrations
+      - worker-ossec-active-response:/var/ossec/active-response/bin
+      - worker-ossec-agentless:/var/ossec/agentless
+      - worker-ossec-wodles:/var/ossec/wodles
+      - worker-filebeat-etc:/etc/filebeat
+      - worker-filebeat-var:/var/lib/filebeat
       - ./production_cluster/ssl_certs/root-ca.pem:/etc/ssl/root-ca.pem
       - ./production_cluster/ssl_certs/filebeat.pem:/etc/ssl/filebeat.pem
       - ./production_cluster/ssl_certs/filebeat.key:/etc/ssl/filebeat.key
